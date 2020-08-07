@@ -40,14 +40,15 @@ jsonget(EEW_URL)
       const cal = json.Body.Intensity.TextInt;
       let mag = json.Body.Earthquake.Magnitude;
       let msg = null;
-      if (itn === "1" || itn === "2") {
-        // Do nothing.
-      } else if (loc.match(cf.config.filter)) {
+      if (itn == "1" || itn == "2") {
+        // 震度1～2は無視
+      } else if ((itn == "3" || itn == "4") && !loc.match(cf.config.filter)) {
+        // 震度3～4は、指定した地域以外は無視
+      } else {
+        // 指定した地域の震度3以上 or 震度5以上は通知
         if (status === "通常") {
           mag = mag.replace(".", "点");
           msg = `${loc}で地震です。深さは${dep}キロメートル。${cal}。マグニチュードは${mag}です。`;
-        } else if (status === "取消") {
-          msg = "地震速報は取り消されました";
         }
         if (!isNull(msg)) {
           ghn.device(cf.config.device, LANG);
