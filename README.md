@@ -14,10 +14,10 @@
  # mdnsのmakeに必要なライブラリのインストール
  $ sudo apt-get install libnss-mdns libavahi-compat-libdnssd-dev
  # モジュールインストール
- $ npm i
+ $ yarn install
  # google-home-notifierの下のgoogle-tts-apiを変更
  $ cd node_modules/google-home-notifier
- $ npm i google-tts-api@0.0.4
+ $ yarn install google-tts-api@0.0.4
 ~~~
 
 セットアップ後、[google-home-notifier](https://github.com/noelportugal/google-home-notifier)のページに書かれている通り、node_modules/mdns/lib/browser.jsを修正します。
@@ -50,3 +50,17 @@ config:
 ~~~
 
 cron等に登録してください。
+
+~~~ cron
+ */5 6-23 * * *       /usr/bin/node /home/pi/notify_weather/notify_rain.js
+ */5 6-23 * * *       /usr/bin/node /home/pi/notify_weather/notify_earthquake.js
+~~~
+
+## WSLで試す場合
+
+WSLで試す場合は、事前にdbusとavahi-daemonを動かす必要があります。
+
+~~~ bash
+ # dbus, avahi-daemonの起動
+ $ ./avahi_wsl.sh
+~~~

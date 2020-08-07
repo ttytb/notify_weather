@@ -3,6 +3,7 @@ const fs = require("fs");
 const os = require("os");
 const ghn = require("google-home-notifier");
 const rp = require("request-promise");
+const { isNull } = require("util");
 cf = require("config");
 
 const STATE_FILE = os.tmpdir() + "/eew_state";
@@ -38,27 +39,26 @@ jsonget(EEW_URL)
       const itn = json.Body.Intensity.MaxInt;
       const cal = json.Body.Intensity.TextInt;
       let mag = json.Body.Earthquake.Magnitude;
-      let msg = "";
+      let msg = null;
       if (itn === "1" || itn === "2") {
         // Do nothing.
-      } else {
+      } else if (loc.match(cf.config.filter)) {
         if (status === "通常") {
           mag = mag.replace(".", "点");
-          msg =
-            `${loc}で地震です。深さは${dep}キロメートル。${cal}。マグニチュードは${mag}です。`;
+          msg = `${loc}で地震です。深さは${dep}キロメートル。${cal}。マグニチュードは${mag}です。`;
         } else if (status === "取消") {
           msg = "地震速報は取り消されました";
         }
-        if (msg !== "") {
+        if (!isNull(msg)) {
           ghn.ip(cf.config.ip);
           ghn.accent(LANG);
           ghn.notify(msg, (res) => console.log("said " + msg));
         }
-        try {
-          fs.writeFileSync(STATE_FILE, eventID);
-        } catch (error) {
-          console.log(error);
-        }
+      }
+      try {
+        fs.writeFileSync(STATE_FILE, eventID);
+      } catch (error) {
+        console.log(error);
       }
     }
   })

@@ -4,6 +4,7 @@ const os = require("os");
 const ghn = require("google-home-notifier");
 const rp = require("request-promise");
 const moment = require("moment");
+const { isNull } = require("util");
 cf = require("config");
 
 const COUNT = 5;
@@ -50,13 +51,13 @@ jsonget(YAHOO_URL)
         console.log(error);
       }
     }
-    let msg = "";
+    let msg = null;
     if (maxRain >= THRESHOLD && pastRain < THRESHOLD) {
       msg = "もうすぐ、強い雨が降り出します。";
     } else if (maxRain > 1 && pastRain <= 1) {
       msg = "もうすぐ、雨が降り出します。";
     }
-    if (msg !== "") {
+    if (!isNull(msg)) {
       ghn.ip(cf.config.ip);
       ghn.accent(LANG);
       ghn.notify(msg, (res) => console.log("said " + msg));
