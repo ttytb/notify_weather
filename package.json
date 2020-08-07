@@ -1,0 +1,16 @@
+{
+  "name": "notify_weather",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ttytb/notify_weather.git",
+  "author": "ttytb <teu@tmhn.net>",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.1",
+    "google-home-notifier": "^1.2.0",
+    "google-tts-api": "0.0.4",
+    "js-yaml": "^3.14.0",
+    "moment": "^2.27.0",
+    "request-promise": "^4.2.6"
+  }
+}
