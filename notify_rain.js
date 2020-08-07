@@ -9,7 +9,7 @@ cf = require("config");
 
 const COUNT = 5;
 const THRESHOLD = 20;
-const STATE_FILE = os.tmpdir() + "/rain_state";
+const STATE_FILE = `${os.tmpdir()}/rain_state`;
 const YAHOO_URL = "https://map.yahooapis.jp/weather/V1/place";
 const LANG = "ja";
 
@@ -36,7 +36,7 @@ jsonget(YAHOO_URL)
       const element = data[index];
       const rain = element["Rainfall"];
       const dt = moment(element["Date"], "YYYYMMDDHHmmss");
-      console.log(dt.format("HH:mm") + " " + rain + "mm");
+      console.log(`${dt.format("HH:mm")} ${rain}mm`);
       if (rain > maxRain) {
         maxRain = rain;
       }
@@ -53,15 +53,15 @@ jsonget(YAHOO_URL)
     }
     let msg = null;
     if (maxRain >= THRESHOLD && pastRain < THRESHOLD) {
-      msg = "もうすぐ、強い雨が降り出します。";
+      msg = `もうすぐ、強い雨が降り出します。雨量は、最大${maxRain}ミリです。`;
     } else if (maxRain > 1 && pastRain <= 1) {
-      msg = "もうすぐ、雨が降り出します。";
+      msg = `もうすぐ、雨が降り出します。雨量は、最大${maxRain}ミリです。`;
     }
     if (!isNull(msg)) {
       ghn.device(cf.config.device, LANG);
       ghn.ip(cf.config.ip);
       ghn.accent(LANG);
-      ghn.notify(msg, (res) => console.log("said " + msg));
+      ghn.notify(msg, (res) => console.log(`said ${msg}`));
     }
     fs.writeFileSync(STATE_FILE, maxRain);
   })

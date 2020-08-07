@@ -31,15 +31,16 @@ config:
   location: "135.000000,35.000000"
   appid: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012-"
   ip: "192.168.0.1"
-  filter: "(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県)"
+  filter: "^(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県).*$"
 ~~~
 
 |ID|設定値|
 |---|---|
 |location|降雨のチェックをしたい場所|
 |appid|Yahooで取得したAPPID|
+|device|Google-Homeのデバイス名|
 |ip|Google-HomeのIPアドレス|
-|filter|地震の通知をしたい場所|
+|filter|地震の通知をしたい場所(正規表現)|
 
 ## 実行方法
 
