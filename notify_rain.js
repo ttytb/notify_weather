@@ -58,6 +58,7 @@ jsonget(YAHOO_URL)
       msg = "もうすぐ、雨が降り出します。";
     }
     if (!isNull(msg)) {
+      ghn.device(cf.config.device, LANG);
       ghn.ip(cf.config.ip);
       ghn.accent(LANG);
       ghn.notify(msg, (res) => console.log("said " + msg));

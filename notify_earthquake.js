@@ -50,6 +50,7 @@ jsonget(EEW_URL)
           msg = "地震速報は取り消されました";
         }
         if (!isNull(msg)) {
+          ghn.device(cf.config.device, LANG);
           ghn.ip(cf.config.ip);
           ghn.accent(LANG);
           ghn.notify(msg, (res) => console.log("said " + msg));
