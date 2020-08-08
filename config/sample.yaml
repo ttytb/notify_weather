@@ -4,5 +4,3 @@ config:
   device: "Google-"
   ip: "192.168.0.1"
   filter: "^(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県).*$"
-  rain_interval: 5
-  eew_interval: 1
