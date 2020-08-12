@@ -31,7 +31,7 @@ config:
   location: "135.000000,35.000000"
   appid: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012-"
   ip: "192.168.0.1"
-  filter: "^(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県).*$"
+  filter: "^(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県|長野県|山梨県|静岡県|東京湾|相模湾|伊豆|房総半島).*$"
 ~~~
 
 |ID|設定値|
@@ -40,7 +40,7 @@ config:
 |appid|Yahooで取得したAPPID|
 |device|Google-Homeのデバイス名|
 |ip|Google-HomeのIPアドレス|
-|filter|地震の通知をしたい場所(正規表現)|
+|filter|地震の通知をしたい場所(正規表現) [気象庁](http://www.data.jma.go.jp/svd/eqev/data/joho/region/index.html)のページから選択|
 
 ## 実行方法
 
@@ -53,8 +53,8 @@ config:
 cron等に登録してください。
 
 ~~~ cron
- */5 6-23 * * *       /usr/bin/node /home/pi/notify_weather/notify_rain.js
- */5 6-23 * * *       /usr/bin/node /home/pi/notify_weather/notify_earthquake.js
+ */5 6-23 * * * cd /home/pi/notify_weather;/usr/bin/node ./notify_rain.js
+ */5 6-23 * * * cd /home/pi/notify_weather;/usr/bin/node ./notify_earthquake.js
 ~~~
 
 ## WSLで試す場合
