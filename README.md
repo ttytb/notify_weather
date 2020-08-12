@@ -17,10 +17,16 @@
  $ yarn install
  # google-home-notifierの下のgoogle-tts-apiを変更
  $ cd node_modules/google-home-notifier
- $ yarn install google-tts-api@0.0.4
+ $ yarn add google-tts-api@0.0.4
 ~~~
 
-セットアップ後、[google-home-notifier](https://github.com/noelportugal/google-home-notifier)のページに書かれている通り、node_modules/mdns/lib/browser.jsを修正します。
+Raspberry-Pi等で動かす場合は、セットアップ後、[google-home-notifier](https://github.com/noelportugal/google-home-notifier)のページに書かれている通り、node_modules/mdns/lib/browser.jsを修正します。
+
+~~~ bach
+ # パッチ
+ $ patch -u node_modules/mdns/lib/browser.js < patch/browser.js.patch
+ $ patch -u node_modules/google-home-notifier/node_modules/mdns/lib/browser.js < patch/browser.js.patch
+~~~
 
 ## コンフィグファイル
 
