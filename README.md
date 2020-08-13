@@ -12,7 +12,7 @@
 
 ~~~ bash
  # mdnsのmakeに必要なライブラリのインストール
- $ sudo apt-get install libnss-mdns libavahi-compat-libdnssd-dev
+ $ sudo apt-get install -y libnss-mdns libavahi-compat-libdnssd-dev
  # モジュールインストール
  $ yarn install
  # google-home-notifierの下のgoogle-tts-apiを変更
@@ -36,14 +36,15 @@ config/default.yaml
 config:
   location: "135.000000,35.000000"
   appid: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012-"
+  device: "Google-Home-xxxx"
   ip: "192.168.0.1"
   filter: "^(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県|長野県|山梨県|静岡県|東京湾|相模湾|伊豆|房総半島).*$"
 ~~~
 
 |ID|設定値|
 |---|---|
-|location|降雨のチェックをしたい場所|
-|appid|Yahooで取得したAPPID|
+|location|降雨のチェックをしたい場所の緯度経度 [Yahoo! 地図](https://map.yahoo.co.jp/)で調べてください|
+|appid|Yahoo!で取得したAPPID 詳細は[Yahoo! ID連携](https://developer.yahoo.co.jp/yconnect/)を参照|
 |device|Google-Homeのデバイス名|
 |ip|Google-HomeのIPアドレス|
 |filter|地震の通知をしたい場所(正規表現) [気象庁](http://www.data.jma.go.jp/svd/eqev/data/joho/region/index.html)のページから選択|
@@ -70,4 +71,15 @@ WSLで試す場合は、事前にdbusとavahi-daemonを動かす必要があり�
 ~~~ bash
  # dbus, avahi-daemonの起動
  $ ./avahi_wsl.sh
+~~~
+
+## Google Homeの名前の確認方法
+
+Google Homeの名前は、avahi-browseを使って確認してください。
+
+~~~ bash
+ # インストール
+ $ sudo apt install -y avahi-utils
+ # 検索
+ $ avahi-browse -at
 ~~~
