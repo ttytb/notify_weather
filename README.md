@@ -45,9 +45,20 @@ config:
 |---|---|
 |location|降雨のチェックをしたい場所の緯度経度 [Yahoo! 地図](https://map.yahoo.co.jp/)で調べてください|
 |appid|Yahoo!で取得したAPPID 詳細は[Yahoo! ID連携](https://developer.yahoo.co.jp/yconnect/)を参照|
-|device|Google-Homeのデバイス名|
+|device|Google-Homeのデバイス名 確認方法は下記参照|
 |ip|Google-HomeのIPアドレス|
 |filter|地震の通知をしたい場所(正規表現) [気象庁](http://www.data.jma.go.jp/svd/eqev/data/joho/region/index.html)のページから選択|
+
+### Google Home デバイス名の確認方法
+
+Google Homeのデバイス名は、avahi-browseを使って確認してください。
+
+~~~ bash
+ # インストール
+ $ sudo apt install -y avahi-utils
+ # 検索
+ $ avahi-browse -at
+~~~
 
 ## 実行方法
 
@@ -64,22 +75,11 @@ cron等に登録してください。
  */5 6-23 * * * cd /home/pi/notify_weather;/usr/bin/node ./notify_earthquake.js
 ~~~
 
-## WSLで試す場合
+### WSLで試す場合
 
 WSLで試す場合は、事前にdbusとavahi-daemonを動かす必要があります。
 
 ~~~ bash
  # dbus, avahi-daemonの起動
  $ ./avahi_wsl.sh
-~~~
-
-## Google Homeの名前の確認方法
-
-Google Homeの名前は、avahi-browseを使って確認してください。
-
-~~~ bash
- # インストール
- $ sudo apt install -y avahi-utils
- # 検索
- $ avahi-browse -at
 ~~~
