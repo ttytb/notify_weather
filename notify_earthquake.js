@@ -6,7 +6,7 @@ const rp = require("request-promise");
 const { isNull } = require("util");
 cf = require("config");
 
-const STATE_FILE = `${os.tmpdir()}/eew_state`;
+const STATE_FILE = `${cf.config.tmpdir}/eew_state`;
 const EEW_URL = "http://svir.jp/eew/data.json";
 const LANG = "ja";
 

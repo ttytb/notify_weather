@@ -9,7 +9,7 @@ cf = require("config");
 
 const COUNT = 5;
 const THRESHOLD = 20;
-const STATE_FILE = `${os.tmpdir()}/rain_state`;
+const STATE_FILE = `${cf.config.tmpdir}/rain_state`;
 const YAHOO_URL = "https://map.yahooapis.jp/weather/V1/place";
 const LANG = "ja";
 
