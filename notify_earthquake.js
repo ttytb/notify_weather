@@ -42,8 +42,9 @@ jsonget(EEW_URL)
       let msg = null;
       if (itn == "1" || itn == "2") {
         // 震度1～2は無視
-      } else if ((itn == "3" || itn == "4") && !loc.match(cf.config.filter)) {
-        // 震度3～4は、指定した地域以外は無視
+      } else if ((itn == "3" || itn == "4" || itn === "不明")
+                 && !loc.match(cf.config.filter)) {
+        // 震度3～4、不明は、指定した地域以外は無視
       } else {
         // 指定した地域の震度3以上 or 震度5以上は通知
         if (status === "通常") {
