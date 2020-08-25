@@ -54,7 +54,7 @@ jsonget(YAHOO_URL)
     let msg = null;
     if (maxRain >= THRESHOLD && pastRain < THRESHOLD) {
       msg = `もうすぐ、強い雨が降り出します。雨量は、最大${maxRain}ミリです。`;
-    } else if (maxRain > 1 && pastRain <= 1) {
+    } else if (maxRain >= 1 && pastRain == 0) {
       msg = `もうすぐ、雨が降り出します。雨量は、最大${maxRain}ミリです。`;
     }
     if (!isNull(msg)) {
