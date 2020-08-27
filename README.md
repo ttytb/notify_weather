@@ -4,7 +4,7 @@
 
   雨が降りそうなときにGoogle Homeに通知します。
 
-- notify_earthquake.js
+- notify_eew.js
 
   地震が発生したときにGoogle Homeに通知します。
 
@@ -48,7 +48,8 @@ config:
 |appid|Yahoo!で取得したAPPID 詳細は[Yahoo! ID連携](https://developer.yahoo.co.jp/yconnect/)を参照|
 |device|Google-Homeのデバイス名 確認方法は下記参照|
 |ip|Google-HomeのIPアドレス|
-|filter|地震の通知をしたい場所(正規表現) [気象庁](http://www.data.jma.go.jp/svd/eqev/data/joho/region/index.html)のページから選択|
+|filter1|震度1～3の地震を通知したい場所(正規表現) [気象庁](http://www.data.jma.go.jp/svd/eqev/data/joho/region/index.html)のページから選択|
+|filter2|震度4～5の地震を通知したい場所(正規表現)|
 |tmpdir|Tempディレクトリのパス|
 
 ### Google Home デバイス名の確認方法
@@ -74,7 +75,7 @@ cron等に登録してください。
 
 ~~~ cron
  */5 6-23 * * * cd /home/pi/notify_weather;/usr/bin/node ./notify_rain.js
- */5 6-23 * * * cd /home/pi/notify_weather;/usr/bin/node ./notify_earthquake.js
+ */5 6-23 * * * cd /home/pi/notify_weather;/usr/bin/node ./notify_eew.js
 ~~~
 
 ### WSLで試す場合

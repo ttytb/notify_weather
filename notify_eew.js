@@ -40,13 +40,14 @@ jsonget(EEW_URL)
       const cal = json.Body.Intensity.TextInt;
       let mag = json.Body.Earthquake.Magnitude;
       let msg = null;
-      if (itn == "1" || itn == "2") {
-        // 震度1～2は無視
-      } else if ((itn == "3" || itn == "4" || itn === "不明")
-                 && !loc.match(cf.config.filter)) {
-        // 震度3～4、不明は、指定した地域以外は無視
+      if ((itn == "1" || itn == "2" || itn == "3" || itn === "不明")
+                && !loc.match(cf.config.filter1)) {
+        // 震度1～3、不明は、地域1以外は無視
+      } else if ((itn == "4" || itn == "5")
+                && !loc.match(cf.config.filter2)) {
+        // 震度4～5は、地域2以外は無視
       } else {
-        // 指定した地域の震度3以上 or 震度5以上は通知
+        // 指定した地域 or 震度6以上は通知
         if (status === "通常") {
           mag = mag.replace(".", "点");
           msg = `${loc}で地震です。深さは${dep}キロメートル。${cal}。マグニチュードは${mag}です。`;
