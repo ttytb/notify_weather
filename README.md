@@ -38,7 +38,8 @@ config:
   appid: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012-"
   device: "Google-Home-xxxx"
   ip: "192.168.0.1"
-  filter: "^(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県|長野県|山梨県|静岡県|東京湾|相模湾|伊豆|房総半島).*$"
+  filter1: "^(東京都|神奈川県|千葉県).*$"
+  filter2: "^(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県|長野県|山梨県|静岡県|東京湾|相模湾|伊豆|房総半島).*$"
   tmpdir: "/tmp"
 ~~~
 
@@ -48,7 +49,7 @@ config:
 |appid|Yahoo!で取得したAPPID 詳細は[Yahoo! ID連携](https://developer.yahoo.co.jp/yconnect/)を参照|
 |device|Google-Homeのデバイス名 確認方法は下記参照|
 |ip|Google-HomeのIPアドレス|
-|filter1|震度1～3の地震を通知したい場所(正規表現) [気象庁](http://www.data.jma.go.jp/svd/eqev/data/joho/region/index.html)のページから選択|
+|filter1|震度1～3の地震を通知したい場所(正規表現) 名称は[気象庁](http://www.data.jma.go.jp/svd/eqev/data/joho/region/index.html)のページから選択|
 |filter2|震度4～5の地震を通知したい場所(正規表現)|
 |tmpdir|Tempディレクトリのパス|
 
