@@ -1,10 +1,14 @@
 #!/usr/bin/node
+
 const fs = require("fs");
 const os = require("os");
+const readline = require("readline");
 const ghn = require("google-home-notifier");
 const rp = require("request-promise");
 const moment = require("moment");
-const { isNull } = require("util");
+const {
+  isNull
+} = require("util");
 cf = require("config");
 
 const COUNT = 5;
@@ -41,12 +45,16 @@ jsonget(YAHOO_URL)
         maxRain = rain;
       }
     }
+
     let pastRain = 0;
+    let pastSaid = false;
     try {
-      pastRain = fs.readFileSync(STATE_FILE, "utf8");
+      let lines = fs.readFileSync(STATE_FILE, "utf8").split('\n');
+      pastRain = parseFloat(lines[0]);
+      pastSaid = Boolean.valueOf(lines[1]);
     } catch (error) {
       try {
-        fs.writeFileSync(STATE_FILE, 0);
+        fs.writeFileSync(STATE_FILE, "0\nfalse");
       } catch (error) {
         console.log(error);
       }
@@ -54,16 +62,20 @@ jsonget(YAHOO_URL)
     let msg = null;
     if (maxRain >= THRESHOLD && pastRain < THRESHOLD) {
       msg = `もうすぐ、強い雨が降り出します。雨量は、最大${maxRain}ミリです。`;
-    } else if (maxRain >= 1 && pastRain == 0) {
+    } else if (maxRain >= 1.5 && !pastSaid) {
       msg = `もうすぐ、雨が降り出します。雨量は、最大${maxRain}ミリです。`;
+    } else if (maxRain == 0) {
+      pastSaid = false;
     }
     if (!isNull(msg)) {
       ghn.device(cf.config.device, LANG);
       ghn.ip(cf.config.ip);
       ghn.accent(LANG);
       ghn.notify(msg, (res) => console.log(`said ${msg}`));
+      pastSaid = true;
     }
-    fs.writeFileSync(STATE_FILE, maxRain);
+    fs.writeFileSync(STATE_FILE, `${maxRain}
+${pastSaid}`);
   })
   .catch(function (err) {
     console.log(err);
