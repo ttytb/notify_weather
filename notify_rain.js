@@ -46,15 +46,15 @@ jsonget(YAHOO_URL)
       }
     }
 
-    let pastRain = 0;
+    let pastRain = 0.0;
     let pastSaid = false;
     try {
       let lines = fs.readFileSync(STATE_FILE, "utf8").split('\n');
       pastRain = parseFloat(lines[0]);
-      pastSaid = Boolean.valueOf(lines[1]);
+      pastSaid = Boolean(lines[1]);
     } catch (error) {
       try {
-        fs.writeFileSync(STATE_FILE, "0\nfalse");
+        fs.writeFileSync(STATE_FILE, "0.0\n0");
       } catch (error) {
         console.log(error);
       }
@@ -64,7 +64,7 @@ jsonget(YAHOO_URL)
       msg = `もうすぐ、強い雨が降り出します。雨量は、最大${maxRain}ミリです。`;
     } else if (maxRain >= 1.5 && !pastSaid) {
       msg = `もうすぐ、雨が降り出します。雨量は、最大${maxRain}ミリです。`;
-    } else if (maxRain == 0) {
+    } else if (maxRain == 0.0) {
       pastSaid = false;
     }
     if (!isNull(msg)) {
@@ -75,7 +75,7 @@ jsonget(YAHOO_URL)
       pastSaid = true;
     }
     fs.writeFileSync(STATE_FILE, `${maxRain}
-${pastSaid}`);
+${Number(pastSaid)}`);
   })
   .catch(function (err) {
     console.log(err);
