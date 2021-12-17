@@ -15,9 +15,6 @@
  $ sudo apt-get install -y libnss-mdns libavahi-compat-libdnssd-dev
  # モジュールインストール
  $ yarn install
- # google-home-notifierの下のgoogle-tts-apiを変更
- $ cd node_modules/google-home-notifier
- $ yarn add google-tts-api@0.0.4
 ~~~
 
 Raspberry-Pi等で動かす場合は、セットアップ後、[google-home-notifier](https://github.com/noelportugal/google-home-notifier)のページに書かれている通り、node_modules/mdns/lib/browser.jsを修正します。
@@ -36,7 +33,6 @@ config/default.yaml
 config:
   location: "135.000000,35.000000"
   appid: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012-"
-  device: "Google-Home-xxxx"
   ip: "192.168.0.1"
   filter1: "^(東京都|神奈川県|千葉県).*$"
   filter2: "^(東京都|神奈川県|千葉県|埼玉県|群馬県|栃木県|茨城県|長野県|山梨県|静岡県|東京湾|相模湾|伊豆|房総半島).*$"
@@ -53,16 +49,9 @@ config:
 |filter2|震度4～5の地震を通知したい場所(正規表現)|
 |tmpdir|Tempディレクトリのパス|
 
-### Google Home デバイス名の確認方法
+### Google Home のIPアドレスについて
 
-Google Homeのデバイス名は、avahi-browseを使って確認してください。
-
-~~~ bash
- # インストール
- $ sudo apt install -y avahi-utils
- # 検索
- $ avahi-browse -at
-~~~
+Google HomeのIPアドレスは固定してください。
 
 ## 実行方法
 

@@ -1,7 +1,7 @@
 #!/usr/bin/node
 const fs = require("fs");
 const os = require("os");
-const ghn = require("google-home-notifier");
+const ghp = require("google-home-player");
 const rp = require("request-promise");
 const { isNull } = require("util");
 cf = require("config");
@@ -53,10 +53,9 @@ jsonget(EEW_URL)
           msg = `${loc}で地震です。深さは${dep}キロメートル。${cal}。マグニチュードは${mag}です。`;
         }
         if (!isNull(msg)) {
-          ghn.device(cf.config.device, LANG);
-          ghn.ip(cf.config.ip);
-          ghn.accent(LANG);
-          ghn.notify(msg, (res) => console.log(`said ${msg}`));
+          let gh;
+          gh = new ghp(cf.config.ip, LANG);
+          gh.say(msg);
         }
       }
       try {

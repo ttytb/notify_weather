@@ -3,7 +3,7 @@
 const fs = require("fs");
 const os = require("os");
 const readline = require("readline");
-const ghn = require("google-home-notifier");
+const ghp = require("google-home-player");
 const rp = require("request-promise");
 const moment = require("moment");
 const {
@@ -62,16 +62,15 @@ jsonget(YAHOO_URL)
     let msg = null;
     if (maxRain >= THRESHOLD && pastRain < THRESHOLD) {
       msg = `もうすぐ、強い雨が降り出します。雨量は、最大${maxRain}ミリです。`;
-    } else if (maxRain >= 1.5 && !pastSaid) {
+    } else if (maxRain >= 1.0 && !pastSaid) {
       msg = `もうすぐ、雨が降り出します。雨量は、最大${maxRain}ミリです。`;
     } else if (maxRain == 0.0) {
       pastSaid = false;
     }
     if (!isNull(msg)) {
-      ghn.device(cf.config.device, LANG);
-      ghn.ip(cf.config.ip);
-      ghn.accent(LANG);
-      ghn.notify(msg, (res) => console.log(`said ${msg}`));
+      let gh;
+      gh = new ghp(cf.config.ip, LANG);
+      ghn.say(msg);
       pastSaid = true;
     }
     fs.writeFileSync(STATE_FILE, `${maxRain}
