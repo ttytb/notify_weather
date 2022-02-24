@@ -58,7 +58,7 @@ Google HomeのIPアドレスは固定してください。
 ~~~ bash
  # 実行方法
  $ node notify_rain.js
- $ node notify_earthquake.js
+ $ node notify_eew.js
 ~~~
 
 cron等に登録してください。
